@@ -1,4 +1,3 @@
-# 1. 버전관리 개요 정리
 ## 버전관리 개요
 
 
@@ -128,3 +127,118 @@ git config --global core.autocrlf true  # 줄바꿈 자동변환(Windows)
 git config --global core.safecrlf false # 줄바꿈 오류 방지
 git config --global core.editor "code --wait" # 기본 편집기(VSCode)
 git config --global init.defaultBranch main # 기본 브랜치 이름
+
+# 🔥 Git 커밋과 로그 – 정리
+Git은 **Working Directory 작업 → Staging Area 대기 → Repository 저장** 구조로 구성된다.
+
+- `git add` : 변경 내용을 스테이징  
+- `git commit` : 저장소에 스냅샷 저장  
+- 새 파일은 untracked 상태 → `git status`로 확인  
+- 커밋 메시지는 `-m` 또는 편집기로 입력  
+- 버전 이력 확인 : `git log`, `git log --oneline`, `git show`
+
+> 이 단계에서 Git의 가장 기본적인 “버전 기록 흐름”을 이해할 수 있다.
+
+---
+
+# 🕰 로그 이력과 과거 여행 – 정리
+
+- 여러 커밋 후 `git log`, `git log --graph`, `git log --reverse` 를 통해 흐름 확인  
+- Git은 **HEAD 포인터**로 현재 위치 표현  
+- `HEAD~`, `HEAD^`로 이전 커밋 가리킴  
+- `git checkout 커밋` → 특정 시점으로 이동 가능
+
+> Git은 그냥 저장이 아니라 **과거로 순간 이동하는 타임머신** 같은 도구!
+
+---
+
+# 🧪 [실습] 커밋과 로그 이력, 과거 여행
+
+- hello.txt 생성 → 수정 → add → commit 반복해 3개의 스냅샷 생성  
+- `git log`, `git show`로 차이 확인  
+- `git checkout HEAD~`, `git checkout HEAD~2` → 과거 이동  
+- `git checkout main` → 현재로 복귀  
+- 상태가 깨끗해야 checkout 가능  
+- 중간 작업은 `git stash`로 임시 저장 가능  
+
+---
+
+# 🔍 파일 비교(diff) – 정리
+
+Git diff는 **어떤 줄이 추가/삭제** 되었는지 비교하는 기능
+
+| 명령 | 비교 대상 |
+|------|---------|
+| `git diff` | 작업 ↔ 스테이징 |
+| `git diff --staged` | 스테이징 ↔ 저장소 |
+| `git diff A B` | 두 커밋 비교 |
+
+> 버그 추적 / 코드 리뷰 / 기능 수정 필수 기능 (개발자의 CCTV 📹)
+
+---
+
+# 🗑 파일 삭제(rm) & 복원(restore) – 정리
+
+| 명령 | 작동 |
+|------|------|
+| `rm` | 작업 디렉토리만 삭제 |
+| `git rm` | 작업 + 스테이징 둘 다 삭제 |
+| `git rm --cached` | 스테이징만 삭제 (파일은 남김) |
+
+- 삭제 후 커밋하면 저장소 이력 반영  
+- 복원은 `git restore` 로 진행  
+
+> 잘못 지워도 걱정 마! Git은 휴지통 + 복원 서비스 탑재 😎
+
+---
+
+# 🧪 [실습] diff, rm, restore
+
+- 각 영역에서 파일 상태 변화 확인 (`diff`, `diff --staged`, `diff HEAD`)  
+- `git rm`, `git rm --cached` 실습  
+- `git restore` 로 원상 복구  
+- Git이 **저장 + 삭제 + 복원**을 제공하는 버전 시스템임을 이해
+
+---
+
+# 🏷 버전과 태그 활용 – 정리
+
+- 소프트웨어 버전 : `major.minor.patch (SemVer)`
+- Git의 **tag** 로 특정 버전 명명
+
+| 태그 종류 | 특징 |
+|----------|------|
+| Annotated Tag | 주석/작성자/메시지 포함 |
+| Lightweight Tag | 단순 이름만 저장 |
+
+명령: `git tag`, `git show`, `git tag -d`
+
+> “이 순간이야!” 하고 딱 꽂아두는 책갈피 📍
+
+---
+
+# 🌿 브랜치 개요와 관리 – 정리
+
+- 브랜치 = 독립 작업 라인  
+- 기본 브랜치: `main`
+- 새로운 기능/테스트 시 별도 브랜치 생성
+
+| 명령 | 설명 |
+|------|------|
+| `git branch` | 목록 |
+| `git branch new` | 생성 |
+| `git switch 브랜치` | 이동 |
+| `git checkout 브랜치` | 이동(구 방식) |
+| `git merge` | 병합 |
+
+> 메인을 어지럽히지 않는 “평행세계 개발” 가능 ✨
+
+---
+
+# 🧪 [실습] 브랜치 개요와 관리
+
+- 브랜치 생성 → 이동 → 개별 커밋  
+- merge 실습 → 충돌 해결 과정 확인  
+- 충돌은 Git이 표시 → 사람이 직접 조정  
+- 브랜치는 협업의 질을 바꾸는 핵심 개념
+

@@ -127,6 +127,7 @@ git config --global core.autocrlf true  # 줄바꿈 자동변환(Windows)
 git config --global core.safecrlf false # 줄바꿈 오류 방지
 git config --global core.editor "code --wait" # 기본 편집기(VSCode)
 git config --global init.defaultBranch main # 기본 브랜치 이름
+```
 
 # 🔥 Git 커밋과 로그 – 정리
 Git은 **Working Directory 작업 → Staging Area 대기 → Repository 저장** 구조로 구성된다.
